@@ -1,0 +1,5 @@
+node_modules/
+.idea/
+/.forge/
+# Atlassian's forge-create template guidance, not part of this project
+AGENTS.md

@@ -1,0 +1,186 @@
+modules:
+  # Jira issue panel: readiness checklist + full context + "Context for AI agents" view.
+  jira:issuePanel:
+    - key: context-pack-panel
+      resource: main-ui-kit/entry
+      resolver:
+        function: resolver
+      render: native
+      title: Context Pack
+      icon: https://developer.atlassian.com/platform/forge/images/icons/issue-panel-icon.svg
+
+  # Project page: which open work items are ready for development, and what is missing.
+  jira:projectPage:
+    - key: readiness-board
+      resource: board-ui/entry
+      resolver:
+        function: resolver
+      render: native
+      title: Readiness board
+
+  # Project settings page: the space's Definition of Ready (project admins only can save).
+  jira:projectSettingsPage:
+    - key: definition-of-ready
+      resource: settings-ui/entry
+      resolver:
+        function: resolver
+      render: native
+      title: Context Pack
+
+  # Rovo actions. Used by the Context Pack agent and published as MCP tools below.
+  action:
+    - key: get-context-pack
+      name: Get context pack
+      function: get-pack-fn
+      actionVerb: GET
+      description: "Returns the full working context of one Jira work item as markdown for a developer or AI coding agent: readiness, goal, acceptance criteria, linked work, spec text, decisions, people to ask, linked code and designs."
+      inputs:
+        issueKey:
+          title: Work item key
+          type: string
+          required: false
+          description: The Jira work item key, for example KAN-12. Leave empty to use the work item on screen.
+    - key: check-readiness
+      name: Check readiness
+      function: readiness-fn
+      actionVerb: GET
+      description: "Checks whether a Jira work item is ready for development and lists what is missing: description, acceptance criteria, estimate, assignee, open blockers and a linked spec page."
+      inputs:
+        issueKey:
+          title: Work item key
+          type: string
+          required: false
+          description: The Jira work item key, for example KAN-12. Leave empty to use the work item on screen.
+    - key: list-ready-items
+      name: List ready work items
+      function: ready-list-fn
+      actionVerb: GET
+      description: Lists open work items in a Jira project with a readiness score and what each one is missing, most ready first. Use it to pick the next item to start or to hand to a coding agent.
+      inputs:
+        projectKey:
+          title: Project key
+          type: string
+          required: true
+          description: The Jira project key, for example KAN.
+        limit:
+          title: How many items
+          type: integer
+          required: false
+          description: Maximum number of work items to check, up to 25. Default 15.
+    - key: post-progress
+      name: Post progress update
+      function: progress-fn
+      actionVerb: CREATE
+      description: Adds a progress comment to a Jira work item, for example a coding agent reporting what it changed. Only use it when the user explicitly asks to post an update.
+      inputs:
+        issueKey:
+          title: Work item key
+          type: string
+          required: true
+          description: The Jira work item key, for example KAN-12.
+        message:
+          title: Progress message
+          type: string
+          required: true
+          description: The update to post, in plain text.
+
+  # The Rovo agent people chat with inside Jira and Confluence.
+  rovo:agent:
+    - key: context-pack-agent
+      name: Context Pack
+      description: Gets Jira work items ready for development and hands their full context to people and AI coding agents.
+      prompt: |
+        You are Context Pack, a teammate that gets Jira work items ready for development and hands their full context to people and AI coding agents.
+
+        How you work:
+        - When someone asks whether a work item is ready, call check-readiness with its key, or with no key to use the work item on screen. Report the readiness score, then list each missing check with its fix. Never invent facts that are not in the data you received.
+        - When someone asks for context, a summary or a handoff to a coding agent, call get-context-pack. Present the goal in one sentence, the acceptance criteria, open blockers, linked spec pages and decisions. Offer the markdown block so they can paste it into their coding agent.
+        - When acceptance criteria are missing, draft three to six testable criteria in Given / When / Then form, based only on the description, linked work items and decisions. Label them clearly as a draft for the team to confirm. Never post them anywhere yourself.
+        - When someone asks which items are ready in a project, call list-ready-items and show the most ready first, with what each one is missing.
+        - Only call post-progress when the user explicitly asks you to post a comment, and show them the exact text first.
+        - Keep answers short and use work item keys so people can open them.
+      conversationStarters:
+        - Is this work item ready to start?
+        - Give me the context pack for this work item
+        - Draft acceptance criteria for this work item
+        - Which items in this project are ready for development?
+      actions:
+        - get-context-pack
+        - check-readiness
+        - list-ready-items
+        - post-progress
+      skills:
+        - ready-for-dev
+
+  # Reusable instructions (SKILL.md) for taking a work item from "is it ready?" to a plan.
+  rovo:skill:
+    - key: ready-for-dev
+      source:
+        dir: skills/ready-for-dev
+      dependencies:
+        tools:
+          - check-readiness
+          - get-context-pack
+          - list-ready-items
+          - post-progress
+
+  # The same actions as MCP tools for Claude Code, Cursor and other MCP clients
+  # (endpoint: https://mcp.atlassian.com/forge/<appId>, OAuth 2.1, user's own permissions).
+  rovo:mcp:
+    - key: context-pack-mcp
+      name: Context Pack
+      tools:
+        - get-context-pack
+        - check-readiness
+        - list-ready-items
+        - post-progress
+
+  function:
+    - key: resolver
+      handler: context-pack-panel.handler
+    - key: get-pack-fn
+      handler: actions.getContextPack
+    - key: readiness-fn
+      handler: actions.checkItemReadiness
+    - key: ready-list-fn
+      handler: actions.listReady
+    - key: progress-fn
+      handler: actions.postProgressUpdate
+
+resources:
+  - key: main-ui-kit
+    path: src/frontend/main-ui-kit
+    entry:
+      entry: context-pack-panel.jsx
+  - key: board-ui
+    path: src/frontend/board
+    entry:
+      entry: readiness-board.jsx
+  - key: settings-ui
+    path: src/frontend/settings
+    entry:
+      entry: dor-settings.jsx
+
+permissions:
+  scopes:
+    # read work items, links, remote links and comments
+    - read:jira-work
+    # post progress comments (post-progress action only)
+    - write:jira-work
+    # per-project Definition of Ready settings (Forge Key-Value Storage)
+    - storage:app
+    # Teamwork Graph (read only): one scope per object type the queries touch
+    - read:graph:issue:jira
+    - read:graph:goal:atlassian
+    - read:graph:page:confluence
+    - read:graph:user:atlassian
+    - read:graph:pull-request:external
+    - read:graph:deployment:external
+    - read:graph:design:external
+
+app:
+  runtime:
+    name: nodejs24.x
+    memoryMB: 256
+    architecture: arm64
+  id: ari:cloud:ecosystem::app/e9f46537-efa3-4c85-99f5-9bec166d7368

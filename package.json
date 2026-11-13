@@ -1,0 +1,18 @@
+{
+  "name": "context-pack",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Context Pack: readiness checks and full Jira context for people and AI coding agents (Forge app).",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test \"test/**/*.test.mjs\""
+  },
+  "dependencies": {
+    "@forge/api": "^8.5.0",
+    "@forge/bridge": "^7.0.0",
+    "@forge/kvs": "^2.1.2",
+    "@forge/react": "^12.0.0",
+    "@forge/resolver": "^2.0.0",
+    "react": "^18.2.0"
+  }
+}
