@@ -1,6 +1,6 @@
 # Context Pack privacy policy
 
-Last updated: 13 November 2026
+Last updated: 14 November 2026
 
 Context Pack is a Forge app for Jira. This page explains what it reads, what it keeps and where it runs.
 
@@ -16,7 +16,7 @@ Nobody can see anything through Context Pack that they could not already open in
 
 ## What the app stores
 
-Only the **Definition of Ready settings** of each project: which readiness checks are switched on, the minimum description length and the ready rule. They are kept in Forge storage inside your own installation and contain no personal data. Uninstalling the app removes them.
+Only the **Definition of Ready settings** of each project: which readiness checks are switched on, the minimum description length and the ready rule. They are kept in Forge storage inside your own installation and contain no personal data. When the app is uninstalled, Forge deletes them: they are soft-deleted first and kept only for the rest of Atlassian's standard retention period.
 
 Context Pack does not copy, cache or keep work items, comments, page text or user information. Packs are built on request and returned to the person who asked.
 
@@ -27,6 +27,13 @@ Only when a person (or a coding agent acting for that person) explicitly calls t
 ## Where it runs
 
 Context Pack runs on Atlassian Forge and qualifies for **Runs on Atlassian**: it calls no external services, sends no data outside Atlassian and uses no third-party analytics. AI answers in Rovo chat come from Atlassian Rovo; coding agents connected over MCP are chosen and authorised by your own users and site admins.
+
+## Data residency
+
+Context Pack supports Atlassian data residency. Its only stored data lives in Forge hosted storage, which Forge keeps in your Jira site's data residency location and moves with it when an admin migrates the site's data.
+
+- **In scope:** the Definition of Ready settings of each project.
+- **Out of scope:** Forge app logs (error messages that may contain work item or project keys). The app stores no other data.
 
 ## Logs
 
