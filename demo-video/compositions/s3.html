@@ -1,0 +1,51 @@
+<template>
+  <style>
+    #s3-root { position: absolute; inset: 0; overflow: hidden; font-family: "Inter"; background: #ffffff; }
+    #s3-cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #s3-vid, #s3-still { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    .s3-hl { position: absolute; border: 4px solid #c9372c; border-radius: 10px; background: rgba(201,55,44,0.06); opacity: 0; }
+    #s3-hl-score { left: 350px; top: 276px; width: 200px; height: 30px; border-color: #e2b203; background: rgba(226,178,3,0.10); }
+    #s3-hl-fix { left: 706px; top: 398px; width: 356px; height: 212px; border-color: #1d7afc; background: rgba(29,122,252,0.06); }
+    #s3-hl-r1 { left: 350px; top: 406px; width: 712px; height: 34px; }
+    #s3-hl-r2 { left: 350px; top: 452px; width: 712px; height: 36px; }
+    #s3-hl-r3 { left: 350px; top: 496px; width: 712px; height: 26px; }
+    #s3-hl-r5 { left: 350px; top: 554px; width: 712px; height: 26px; }
+    #s3-hl-r6 { left: 350px; top: 583px; width: 712px; height: 26px; }
+    #s3-tag { position: absolute; left: 60px; top: 960px; padding: 16px 28px; border-radius: 999px; background: #172b4d; color: #fff; font-size: 30px; font-weight: 800; opacity: 0; }
+  </style>
+  <div id="s3-root" data-composition-id="s3" data-width="1920" data-height="1080">
+    <div id="s3-cam" data-layout-allow-overflow>
+      <img id="s3-still" class="clip" src="assets/stills/c1_end.png" alt="" data-start="5.4" data-duration="9.4" />
+      <video id="s3-vid" class="clip" src="assets/footage/c1_weak_panel.mp4" muted playsinline data-start="0" data-duration="5.5" data-media-start="0" data-track-index="0"></video>
+      <div id="s3-hl-score" class="s3-hl"></div>
+      <div id="s3-hl-fix" class="s3-hl"></div>
+      <div id="s3-hl-r1" class="s3-hl"></div>
+      <div id="s3-hl-r2" class="s3-hl"></div>
+      <div id="s3-hl-r3" class="s3-hl"></div>
+      <div id="s3-hl-r5" class="s3-hl"></div>
+      <div id="s3-hl-r6" class="s3-hl"></div>
+    </div>
+    <div id="s3-tag">Jira issue panel · Readiness</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s3-tag", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.4);
+    // "scores it 17%" (VO 4.0 + 0.5)
+    tl.fromTo("#s3-hl-score", { opacity: 0, scale: 1.15 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" }, 4.4);
+    // Camera pushes into the panel once the scroll has landed.
+    tl.fromTo("#s3-cam", { scale: 1, x: 0, y: 0 }, { scale: 1.6, x: -360, y: -220, duration: 1.4, ease: "power2.inOut", immediateRender: false }, 5.5);
+    // "every gap comes with a fix" (VO 5.0-6.7 + 0.5)
+    tl.fromTo("#s3-hl-fix", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 6.6);
+    tl.to("#s3-hl-fix", { opacity: 0, duration: 0.3 }, 7.5);
+    tl.to("#s3-hl-score", { opacity: 0, duration: 0.3 }, 7.5);
+    // Each gap lights up as it is named.
+    tl.fromTo("#s3-hl-r1", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 7.6);
+    tl.fromTo("#s3-hl-r2", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 9.2);
+    tl.fromTo("#s3-hl-r3", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 11.2);
+    tl.fromTo("#s3-hl-r6", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 12.1);
+    tl.fromTo("#s3-hl-r5", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 13.1);
+    tl.to("#s3-cam", { scale: 1.64, duration: 1.8, ease: "sine.inOut" }, 13);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["s3"] = tl;
+  </script>
+</template>

@@ -1,0 +1,35 @@
+<template>
+  <style>
+    #s9-root { position: absolute; inset: 0; overflow: hidden; font-family: "Inter"; color: #172b4d; }
+    #s9-bg { position: absolute; inset: 0; background: radial-gradient(1100px 800px at 50% 40%, #e7efff 0%, rgba(231,239,255,0) 65%), #f6f7fb; }
+    #s9-icon { position: absolute; left: 885px; top: 170px; width: 150px; height: 150px; border-radius: 34px; box-shadow: 0 24px 60px rgba(29,122,252,0.28); }
+    #s9-name { position: absolute; left: 0; right: 0; top: 350px; text-align: center; font-size: 112px; font-weight: 800; letter-spacing: -0.04em; }
+    #s9-line1 { position: absolute; left: 0; right: 0; top: 500px; text-align: center; font-size: 44px; font-weight: 700; color: #44546f; }
+    #s9-line2 { position: absolute; left: 0; right: 0; top: 600px; text-align: center; font-size: 54px; font-weight: 800; letter-spacing: -0.02em; background: linear-gradient(90deg, #1d7afc, #5b3fd9); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    #s9-links { position: absolute; left: 0; right: 0; top: 790px; display: flex; justify-content: center; gap: 20px; }
+    .s9-l { padding: 14px 26px; border-radius: 999px; background: #fff; box-shadow: 0 14px 34px rgba(23,43,77,0.10); font-size: 28px; font-weight: 700; color: #172b4d; }
+  </style>
+  <div id="s9-root" data-composition-id="s9" data-width="1920" data-height="1080">
+    <div id="s9-bg" class="clip" data-start="0" data-duration="9"></div>
+    <img id="s9-icon" src="assets/stills/icon.png" alt="" />
+    <div id="s9-name">Context Pack</div>
+    <div id="s9-line1">Know it's ready. Hand over everything.</div>
+    <div id="s9-line2">Build with context. Ship with confidence.</div>
+    <div id="s9-links">
+      <div class="s9-l">Forge app for Jira · Rovo · MCP · Teamwork Graph</div>
+      <div class="s9-l">github.com/kapilshipturtle/context-pack</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s9-icon", { scale: 0.7, opacity: 0.001 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.8)" }, 0.05);
+    tl.fromTo("#s9-name", { y: 20, opacity: 0.001 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 0.2);
+    // "Know it's ready, then hand over everything." (VO ~1.5 + 0.5)
+    tl.fromTo("#s9-line1", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 1.8);
+    // "Build with context, and ship with confidence." (VO ~4.2 + 0.5)
+    tl.fromTo("#s9-line2", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 4.4);
+    tl.fromTo("#s9-links", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 6.2);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["s9"] = tl;
+  </script>
+</template>

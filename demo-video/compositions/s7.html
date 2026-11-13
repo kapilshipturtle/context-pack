@@ -1,0 +1,127 @@
+<template>
+  <style>
+    #s7-root { position: absolute; inset: 0; overflow: hidden; font-family: "Inter"; color: #172b4d; }
+    #s7-bg { position: absolute; inset: 0; background: radial-gradient(1200px 800px at 20% 20%, #e3ecff 0%, rgba(227,236,255,0) 60%), radial-gradient(1000px 700px at 85% 85%, #ece6ff 0%, rgba(236,230,255,0) 60%), #f6f7fb; }
+    #s7-diag { position: absolute; inset: 0; }
+    .s7-box { position: absolute; top: 330px; width: 470px; padding: 30px 32px; background: #fff; border-radius: 24px; box-shadow: 0 24px 60px rgba(23,43,77,0.12); opacity: 0; }
+    .s7-box .k { font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: #5b3fd9; }
+    .s7-box .t { margin-top: 8px; font-size: 34px; font-weight: 800; letter-spacing: -0.01em; }
+    .s7-box .u { margin-top: 10px; font-family: "JetBrains Mono", "DejaVu Sans Mono", monospace; font-size: 22px; color: #1d7afc; }
+    #s7-b1 { left: 90px; }
+    #s7-b2 { left: 725px; }
+    #s7-b3 { left: 1360px; }
+    .s7-tool { margin-top: 12px; font-family: "JetBrains Mono", "DejaVu Sans Mono", monospace; font-size: 28px; font-weight: 700; padding: 10px 14px; border-radius: 10px; background: #f1ecff; color: #3d2a9c; }
+    .s7-arrow { position: absolute; top: 420px; height: 6px; width: 0; border-radius: 3px; background: linear-gradient(90deg, #1d7afc, #5b3fd9); }
+    #s7-a1 { left: 575px; }
+    #s7-a2 { left: 1210px; }
+    #s7-perm { position: absolute; left: 0; right: 0; top: 860px; text-align: center; font-size: 34px; font-weight: 800; opacity: 0; }
+    #s7-perm span { padding: 16px 30px; border-radius: 999px; background: #22a06b; color: #fff; }
+    #s7-title { position: absolute; left: 0; right: 0; top: 130px; text-align: center; font-size: 56px; font-weight: 800; letter-spacing: -0.03em; opacity: 0; }
+    #s7-term { position: absolute; left: 160px; top: 90px; width: 1600px; height: 900px; background: #0f1a2e; border-radius: 22px; box-shadow: 0 40px 100px rgba(15,26,46,0.45); overflow: hidden; opacity: 0; }
+    #s7-bar { height: 56px; background: #1b2a44; display: flex; align-items: center; gap: 10px; padding: 0 22px; }
+    #s7-bar i { width: 16px; height: 16px; border-radius: 50%; display: inline-block; }
+    #s7-bar b { margin-left: 18px; font-family: "JetBrains Mono", "DejaVu Sans Mono", monospace; font-size: 20px; color: #9fadbc; font-weight: 600; }
+    .s7-pane { position: absolute; left: 0; right: 0; top: 56px; bottom: 0; padding: 30px 40px; font-family: "JetBrains Mono", "DejaVu Sans Mono", monospace; font-size: 28px; line-height: 1.42; color: #dbe4f0; }
+    .s7-l { opacity: 0; white-space: pre-wrap; margin-bottom: 8px; }
+    .s7-p { color: #ffffff; font-weight: 700; }
+    .s7-p::before { content: "❯ "; color: #4cc38a; }
+    .s7-c { color: #b8a6ff; }
+    .s7-r { color: #8fb8ff; padding-left: 36px; }
+    .s7-ok { color: #4cc38a; font-weight: 700; padding-left: 36px; }
+    .s7-bad { color: #ffb4ab; padding-left: 36px; }
+    .s7-a { color: #dbe4f0; }
+    .s7-e { color: #ffd166; }
+    #s7-warn { margin-top: 10px; padding: 14px 18px; border-radius: 12px; border: 2px solid rgba(255,209,102,0); }
+    #s7-jira { position: absolute; inset: 0; opacity: 0; background: #fff; }
+    #s7-cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #s7-cam img { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #s7-note { position: absolute; left: 1040px; top: 820px; width: 660px; padding: 20px 26px; border-radius: 18px; background: #ffffff; color: #172b4d; font-size: 28px; font-weight: 800; box-shadow: 0 24px 60px rgba(15,26,46,0.35); opacity: 0; }
+    #s7-note .k { display: block; font-size: 20px; font-weight: 800; color: #5b3fd9; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    #s7-jtag { position: absolute; left: 60px; top: 960px; padding: 16px 28px; border-radius: 999px; background: #172b4d; color: #fff; font-size: 30px; font-weight: 800; }
+  </style>
+  <div id="s7-root" data-composition-id="s7" data-width="1920" data-height="1080">
+    <div id="s7-bg" class="clip" data-start="0" data-duration="44.6"></div>
+    <div id="s7-diag">
+      <div id="s7-title">The same four tools, over MCP</div>
+      <div class="s7-box" id="s7-b1"><div class="k" data-layout-ignore>Any MCP client</div><div class="t">Your coding agent</div><div class="u" data-layout-ignore>terminal or IDE</div></div>
+      <div class="s7-box" id="s7-b2"><div class="k" data-layout-ignore>Atlassian MCP server</div><div class="t">Forge app tools</div><div class="u" data-layout-ignore>mcp.atlassian.com/forge/…</div></div>
+      <div class="s7-box" id="s7-b3"><div class="k" data-layout-ignore>Context Pack</div><div class="s7-tool">check-readiness</div><div class="s7-tool">get-context-pack</div><div class="s7-tool">list-ready-items</div><div class="s7-tool">post-progress</div></div>
+      <div class="s7-arrow" id="s7-a1"></div>
+      <div class="s7-arrow" id="s7-a2"></div>
+      <div id="s7-perm"><span>OAuth · the user's own Jira permissions</span></div>
+    </div>
+    <div id="s7-term">
+      <div id="s7-bar" data-layout-ignore><i style="background:#ff6b6b"></i><i style="background:#ffd166"></i><i style="background:#4cc38a"></i><b>coding agent · payments-service · connected to Context Pack over MCP</b></div>
+      <div class="s7-pane" id="s7-runA">
+        <div class="s7-l s7-p" id="a1">Let's start work on PLAT-33514.</div>
+        <div class="s7-l s7-c" id="a2">  ⚙ check-readiness  PLAT-33514</div>
+        <div class="s7-l s7-bad" id="a3">↳ Needs work · 17% · missing description, acceptance criteria, estimate, spec · blocked by PLAT-33513</div>
+        <div class="s7-l s7-a" id="a4">  I haven't started PLAT-33514: it fails the Definition of Ready.</div>
+        <div class="s7-l s7-a" id="a5">  If I guessed, I could easily build the wrong thing.</div>
+      </div>
+      <div class="s7-pane" id="s7-runB" style="opacity:0">
+        <div class="s7-l s7-p" id="b1">Let's start work on PLAT-33512. Implement it, test every acceptance criterion, then post a progress update.</div>
+        <div class="s7-l s7-c" id="b2">  ⚙ check-readiness  PLAT-33512   <span class="s7-ok" style="padding:0">↳ Ready to start · 100%</span></div>
+        <div class="s7-l s7-c" id="b3">  ⚙ get-context-pack  PLAT-33512  <span style="color:#8fb8ff">↳ goal · 4 acceptance criteria · spec text · 3 decisions · people</span></div>
+        <div class="s7-l s7-a" id="b4">  ✎ src/billing/renewals.js  <span style="color:#8fb8ff">retries at 24, 48 and 72 h · max 3 · hard declines never retried · every retry on the timeline</span></div>
+        <div class="s7-l s7-r" id="b4b">↳ following the decisions: max 3 retries within 72 h · hard declines are final</div>
+        <div class="s7-l s7-a" id="b5">  ✎ test/renewals.test.js   <span style="color:#8fb8ff">+6 tests, one for each acceptance criterion</span></div>
+        <div class="s7-l s7-a" id="b6">  $ npm test</div>
+        <div class="s7-l s7-ok" id="b7">✔ 8 passing</div>
+        <div class="s7-l s7-e" id="s7-warn">  ⚠ The spec says "account_closed", but gateway.js says "closed_account".
+    It read the spec text through Teamwork Graph, followed the code,
+    and asked the spec owner in the Jira comment.</div>
+        <div class="s7-l s7-c" id="b9">  ⚙ post-progress  PLAT-33512  <span class="s7-ok" style="padding:0">↳ comment posted</span></div>
+      </div>
+    </div>
+        <div id="s7-jira">
+      <div id="s7-cam" data-layout-allow-overflow><img src="assets/stills/c2_comment.png" alt="" /></div>
+      <div id="s7-jtag">Posted back to Jira by the agent</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Diagram: "The same four tools are exposed through the Atlassian MCP server" (VO 3.1 + 0.5)
+    tl.fromTo("#s7-title", { opacity: 0.001, y: 14 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.05);
+    tl.fromTo("#s7-b3", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 3.6);
+    tl.fromTo("#s7-b2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 6.6);
+    tl.fromTo("#s7-a2", { width: 0 }, { width: 150, duration: 0.5, ease: "power2.out" }, 7.0);
+    // "so any MCP client can use them" (VO 8.1 + 0.5)
+    tl.fromTo("#s7-b1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 8.6);
+    tl.fromTo("#s7-a1", { width: 0 }, { width: 150, duration: 0.5, ease: "power2.out" }, 9.0);
+    // "with the user's own permissions" (VO 11.1 + 0.5)
+    tl.fromTo("#s7-perm", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 11.6);
+    tl.to("#s7-diag", { opacity: 0, y: -30, duration: 0.5, ease: "power2.in" }, 13.2);
+    // Run A: "We point a coding agent at the checkout ticket" (VO 13.4 + 0.5)
+    tl.fromTo("#s7-term", { opacity: 0, y: 40, scale: 0.98 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, 13.5);
+    const line = (sel, at) => tl.fromTo(sel, { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.25, ease: "power2.out" }, at);
+    line("#a1", 13.9);
+    line("#a2", 15.4);
+    line("#a3", 15.9);
+    line("#a4", 16.4);
+    line("#a5", 16.9);
+    // Run B: "On the ready story" (VO 19.6 + 0.5)
+    tl.to("#s7-runA", { opacity: 0, duration: 0.3 }, 20.4);
+    tl.fromTo("#s7-runB", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 20.6);
+    line("#b1", 20.7);
+    line("#b2", 21.2);
+    line("#b3", 21.8);
+    line("#b4", 23.4);
+    line("#b4b", 25.0);
+    line("#b5", 27.0);
+    line("#b6", 29.4);
+    line("#b7", 30.5);
+    // "It even catches that the spec and the code disagree" (VO 31.6 + 0.5)
+    line("#s7-warn", 32.1);
+    tl.fromTo("#s7-warn", { borderColor: "rgba(255,209,102,0)", backgroundColor: "rgba(255,209,102,0)" }, { borderColor: "rgba(255,209,102,1)", backgroundColor: "rgba(255,209,102,0.12)", duration: 0.4, immediateRender: false }, 32.5);
+    // "because it read the spec, not just a link" (VO 35.6 + 0.5)
+    tl.fromTo("#s7-warn", { scale: 1 }, { scale: 1.015, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 1, immediateRender: false }, 35.4);
+    tl.fromTo("#s7-warn", { scale: 1 }, { scale: 1.015, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 1, immediateRender: false }, 37.8);
+    // "Then it posts its progress back to Jira" (VO 39.2 + 0.5)
+    line("#b9", 39.6);
+    tl.fromTo("#s7-jira", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 40.9);
+    tl.fromTo("#s7-cam", { scale: 1, x: 0, y: 0 }, { scale: 1.6, x: -368, y: -420, duration: 2.2, ease: "power2.inOut", immediateRender: false }, 41.2);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["s7"] = tl;
+  </script>
+</template>

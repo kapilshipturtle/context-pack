@@ -1,0 +1,79 @@
+<template>
+  <style>
+    #s1-root { position: absolute; inset: 0; overflow: hidden; font-family: "Inter"; color: #172b4d; }
+    #s1-bg { position: absolute; inset: 0; background: radial-gradient(1200px 700px at 15% 10%, #e3ecff 0%, rgba(227,236,255,0) 60%), radial-gradient(1000px 700px at 90% 90%, #ece6ff 0%, rgba(236,230,255,0) 60%), #f6f7fb; }
+    .s1-line { position: absolute; left: 0; right: 0; text-align: center; font-weight: 800; letter-spacing: -0.03em; }
+    #s1-l1 { top: 120px; font-size: 64px; }
+    #s1-min { background: linear-gradient(transparent 62%, #b3d4ff 62%); background-size: 0% 100%; background-repeat: no-repeat; }
+    #s1-l2 { top: 120px; font-size: 64px; opacity: 0; }
+    #s1-ticket { position: absolute; left: 610px; top: 330px; width: 700px; height: 300px; background: #ffffff; border-radius: 22px; box-shadow: 0 30px 80px rgba(23,43,77,0.16), 0 2px 0 rgba(23,43,77,0.04); padding: 36px 44px; opacity: 0; }
+    #s1-key { font-size: 28px; font-weight: 600; color: #44546f; display: flex; align-items: center; gap: 12px; }
+    #s1-key .dot { width: 18px; height: 18px; border-radius: 5px; background: #22a06b; }
+    #s1-title { margin-top: 18px; font-size: 54px; font-weight: 800; letter-spacing: -0.02em; }
+    #s1-desc { margin-top: 18px; font-size: 30px; color: #44546f; }
+    #s1-words { position: absolute; right: 44px; bottom: 34px; font-size: 28px; font-weight: 700; color: #c9372c; background: #ffeceb; padding: 8px 16px; border-radius: 999px; opacity: 0; }
+    #s1-agent { position: absolute; left: 1360px; top: 420px; width: 330px; padding: 26px 30px; background: #172b4d; color: #fff; border-radius: 22px; opacity: 0; }
+    #s1-agent .t { font-size: 28px; font-weight: 600; color: #9fadbc; }
+    #s1-agent .g { margin-top: 10px; font-size: 40px; font-weight: 800; }
+    .s1-guess { position: absolute; font-size: 26px; font-weight: 700; padding: 12px 22px; border-radius: 14px; background: #fff4e5; color: #974f0c; opacity: 0; box-shadow: 0 10px 30px rgba(23,43,77,0.10); }
+    #s1-g1 { left: 1390px; top: 270px; }
+    #s1-g2 { left: 1450px; top: 610px; }
+    #s1-g3 { left: 1300px; top: 720px; }
+    .s1-frag { position: absolute; width: 360px; padding: 22px 26px; background: #ffffff; border-radius: 18px; border: 2px dashed #b3c9f5; opacity: 0; box-shadow: 0 16px 40px rgba(23,43,77,0.08); }
+    .s1-frag .k { font-size: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #5b3fd9; }
+    .s1-frag .v { margin-top: 8px; font-size: 28px; font-weight: 700; color: #172b4d; }
+    #s1-f1 { left: 120px; top: 300px; }
+    #s1-f2 { left: 140px; top: 690px; }
+    #s1-f3 { left: 1440px; top: 300px; }
+    #s1-f4 { left: 1420px; top: 690px; }
+  </style>
+  <div id="s1-root" data-composition-id="s1" data-width="1920" data-height="1080">
+    <div id="s1-bg" class="clip" data-start="0" data-duration="20"></div>
+    <div id="s1-l1" class="s1-line">AI coding agents can build a feature <span id="s1-min">in minutes.</span></div>
+    <div id="s1-l2" class="s1-line">The real context lives somewhere else.</div>
+    <div id="s1-ticket">
+      <div id="s1-key"><span class="dot"></span>PLAT-33514 · Story</div>
+      <div id="s1-title">Make checkout faster</div>
+      <div id="s1-desc">Checkout feels slow. Make it faster.</div>
+      <div id="s1-words">6 words</div>
+    </div>
+    <div id="s1-agent"><div class="t">Coding agent</div><div class="g">Guessing…</div></div>
+    <div id="s1-g1" class="s1-guess">Cache every page?</div>
+    <div id="s1-g2" class="s1-guess">Rewrite the API?</div>
+    <div id="s1-g3" class="s1-guess">Swap payment SDK?</div>
+    <div id="s1-f1" class="s1-frag"><div class="k" data-layout-ignore>Spec</div><div class="v">in Confluence</div></div>
+    <div id="s1-f2" class="s1-frag"><div class="k" data-layout-ignore>Decisions</div><div class="v">buried in comments</div></div>
+    <div id="s1-f3" class="s1-frag"><div class="k" data-layout-ignore>Goal</div><div class="v">the why behind it</div></div>
+    <div id="s1-f4" class="s1-frag"><div class="k" data-layout-ignore>People</div><div class="v">who know the code</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Line 1 is visible from the first frame and settles in.
+    tl.fromTo("#s1-l1", { y: 10 }, { y: 0, duration: 0.8, ease: "power3.out" }, 0);
+    tl.fromTo("#s1-min", { backgroundSize: "0% 100%", color: "#172b4d" }, { backgroundSize: "100% 100%", color: "#0c66e4", duration: 0.6, ease: "power2.out" }, 2.9);
+    // "hand one a ticket that says make checkout faster" (VO 3.8 + 0.5)
+    tl.fromTo("#s1-ticket", { y: 60, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.7, ease: "power3.out" }, 4.1);
+    tl.fromTo("#s1-words", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 6.0);
+    // "and it will guess" (VO 6.6 + 0.5)
+    tl.fromTo("#s1-ticket", { x: 0 }, { x: -260, duration: 0.7, ease: "power2.inOut", immediateRender: false }, 6.9);
+    tl.fromTo("#s1-agent", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 7.2);
+    tl.fromTo("#s1-g1", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 7.6);
+    tl.fromTo("#s1-g2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 7.9);
+    tl.fromTo("#s1-g3", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 8.2);
+    // "The real context lives somewhere else" (VO 7.8 + 0.5): clear the guesses, swap the headline.
+    tl.to(["#s1-g1", "#s1-g2", "#s1-g3", "#s1-agent"], { opacity: 0, y: -10, duration: 0.4, ease: "power2.in" }, 9.4);
+    tl.to("#s1-l1", { opacity: 0, y: -16, duration: 0.35, ease: "power2.in" }, 8.4);
+    tl.fromTo("#s1-l2", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 8.8);
+    tl.to("#s1-ticket", { x: 0, duration: 0.8, ease: "power2.inOut" }, 9.8);
+    // The four fragments arrive as they are named.
+    tl.fromTo("#s1-f1", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 11.9);
+    tl.fromTo("#s1-f2", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 13.4);
+    tl.fromTo("#s1-f3", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 15.6);
+    tl.fromTo("#s1-f4", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 17.2);
+    // A slow drift keeps the last beat alive.
+    tl.fromTo(["#s1-f1", "#s1-f2"], { y: 0 }, { y: -8, duration: 2.4, ease: "sine.inOut", immediateRender: false }, 17.6);
+    tl.fromTo(["#s1-f3", "#s1-f4"], { y: 0 }, { y: 8, duration: 2.4, ease: "sine.inOut", immediateRender: false }, 17.6);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["s1"] = tl;
+  </script>
+</template>

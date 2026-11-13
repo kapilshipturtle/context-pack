@@ -1,0 +1,58 @@
+<template>
+  <style>
+    #s2-root { position: absolute; inset: 0; overflow: hidden; font-family: "Inter"; color: #172b4d; }
+    #s2-bg { position: absolute; inset: 0; background: radial-gradient(1100px 800px at 50% 30%, #e7efff 0%, rgba(231,239,255,0) 65%), #f6f7fb; }
+    #s2-brand { position: absolute; left: 0; right: 0; top: 150px; display: flex; align-items: center; justify-content: center; gap: 36px; }
+    #s2-icon { width: 150px; height: 150px; border-radius: 34px; box-shadow: 0 24px 60px rgba(29,122,252,0.28); }
+    #s2-name { font-size: 120px; font-weight: 800; letter-spacing: -0.04em; }
+    #s2-sub { position: absolute; left: 0; right: 0; top: 340px; text-align: center; font-size: 40px; font-weight: 600; color: #44546f; }
+    #s2-checks { position: absolute; left: 330px; top: 470px; width: 600px; background: #fff; border-radius: 22px; padding: 30px 36px; box-shadow: 0 24px 60px rgba(23,43,77,0.10); }
+    #s2-checks .h { font-size: 28px; font-weight: 800; color: #22a06b; letter-spacing: 0.04em; text-transform: uppercase; }
+    .s2-c { margin-top: 16px; display: flex; align-items: center; gap: 16px; font-size: 28px; font-weight: 600; opacity: 0; }
+    .s2-c .b { width: 32px; height: 32px; border-radius: 9px; background: #22a06b; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; }
+    #s2-to { position: absolute; left: 990px; top: 470px; width: 600px; opacity: 0; }
+    .s2-who { display: flex; align-items: center; gap: 20px; padding: 26px 30px; background: #fff; border-radius: 22px; box-shadow: 0 24px 60px rgba(23,43,77,0.10); font-size: 34px; font-weight: 800; margin-bottom: 26px; }
+    .s2-who .i { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 28px; }
+    #s2-surfaces { position: absolute; left: 990px; top: 800px; display: flex; gap: 18px; }
+    .s2-s { padding: 18px 30px; border-radius: 999px; font-size: 32px; font-weight: 800; color: #fff; opacity: 0; }
+  </style>
+  <div id="s2-root" data-composition-id="s2" data-width="1920" data-height="1080">
+    <div id="s2-bg" class="clip" data-start="0" data-duration="15.2"></div>
+    <div id="s2-brand"><img id="s2-icon" src="assets/stills/icon.png" alt="" /><div id="s2-name">Context Pack</div></div>
+    <div id="s2-sub">Know it's ready. Hand over everything.</div>
+    <div id="s2-checks">
+      <div class="h">Ready to start?</div>
+      <div class="s2-c"><span class="b">✓</span>Clear description</div>
+      <div class="s2-c"><span class="b">✓</span>Acceptance criteria</div>
+      <div class="s2-c"><span class="b">✓</span>Estimate</div>
+      <div class="s2-c"><span class="b">✓</span>Owner</div>
+      <div class="s2-c"><span class="b">✓</span>No open blockers</div>
+      <div class="s2-c"><span class="b">✓</span>Linked spec</div>
+    </div>
+    <div id="s2-to">
+      <div class="s2-who"><span class="i" data-layout-ignore style="background:#1d7afc"><svg width="30" height="30" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="#fff"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" fill="#fff"/></svg></span>People</div>
+      <div class="s2-who"><span class="i" data-layout-ignore style="background:#5b3fd9;font-size:22px;font-weight:800">AI</span>AI agents</div>
+    </div>
+    <div id="s2-surfaces">
+      <div class="s2-s" style="background:#1d7afc">Jira</div>
+      <div class="s2-s" style="background:#5b3fd9">Rovo</div>
+      <div class="s2-s" style="background:#172b4d">MCP</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s2-icon", { scale: 0.6, rotation: -8, opacity: 0.001 }, { scale: 1, rotation: 0, opacity: 1, duration: 0.7, ease: "back.out(1.8)" }, 0.05);
+    tl.fromTo("#s2-name", { x: 30, opacity: 0.001 }, { x: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 0.25);
+    tl.fromTo("#s2-sub", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 1.2);
+    // "checks whether a Jira work item is ready to start": tick the Definition of Ready.
+    tl.fromTo("#s2-checks", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 2.6);
+    tl.fromTo(".s2-c", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out", stagger: 0.42 }, 3.4);
+    // "then hands its full context to people and to AI agents"
+    tl.fromTo("#s2-to", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 7.9);
+    // "In Jira, in Rovo, and over MCP."
+    tl.fromTo(".s2-s", { opacity: 0, y: 24, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2)", stagger: 0.85 }, 11.5);
+    tl.fromTo("#s2-brand", { y: 0 }, { y: -6, duration: 3, ease: "sine.inOut", immediateRender: false }, 12);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["s2"] = tl;
+  </script>
+</template>

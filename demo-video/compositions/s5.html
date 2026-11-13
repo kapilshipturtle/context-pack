@@ -1,0 +1,40 @@
+<template>
+  <style>
+    #s5-root { position: absolute; inset: 0; overflow: hidden; font-family: "Inter"; background: #ffffff; color: #172b4d; }
+    #s5-v1, #s5-v2 { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    .s5-tag { position: absolute; left: 60px; top: 960px; padding: 16px 28px; border-radius: 999px; background: #172b4d; color: #fff; font-size: 30px; font-weight: 800; opacity: 0; }
+    .s5-chip { position: absolute; padding: 18px 26px; border-radius: 18px; background: #ffffff; border: 2px solid #1d7afc; color: #172b4d; font-size: 30px; font-weight: 800; box-shadow: 0 20px 50px rgba(23,43,77,0.16); opacity: 0; }
+    .s5-chip .k { display: block; font-size: 18px; font-weight: 800; color: #1d7afc; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    #s5-c1 { left: 1300px; top: 70px; }
+    #s5-c2 { left: 1300px; top: 200px; border-color: #c9372c; }
+    #s5-c2 .k { color: #c9372c; }
+    #s5-c3 { left: 1180px; top: 330px; }
+    #s5-c4 { left: 1180px; top: 480px; width: 600px; border-color: #1f845a; }
+    #s5-c4 .k { color: #1f845a; }
+  </style>
+  <div id="s5-root" data-composition-id="s5" data-width="1920" data-height="1080">
+    <video id="s5-v1" class="clip" src="assets/footage/c3_board.mp4" muted playsinline data-start="0" data-duration="8.6" data-media-start="14.6" data-track-index="0"></video>
+    <video id="s5-v2" class="clip" src="assets/footage/c4_settings.mp4" muted playsinline data-start="8.6" data-duration="10.2" data-media-start="0" data-track-index="0"></video>
+    <div id="s5-t1" class="s5-tag">Readiness board · project page</div>
+    <div id="s5-t2" class="s5-tag">Definition of Ready · project settings</div>
+    <div id="s5-c1" class="s5-chip"><span class="k" data-layout-ignore>Sorted</span>Most ready first</div>
+    <div id="s5-c2" class="s5-chip"><span class="k" data-layout-ignore>Gaps</span>Every gap tagged</div>
+    <div id="s5-c3" class="s5-chip"><span class="k" data-layout-ignore>Per team</span>Switch a check off, save</div>
+    <div id="s5-c4" class="s5-chip"><span class="k" data-layout-ignore>One set of rules</span>Panel, board, Rovo agent and MCP tools all follow it</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s5-t1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
+    // "most ready first" (VO 4.7 + 0.5) and "each gap tagged" (VO 6.4 + 0.5)
+    tl.fromTo("#s5-c1", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 5.2);
+    tl.fromTo("#s5-c2", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 6.9);
+    tl.to(["#s5-t1", "#s5-c1", "#s5-c2"], { opacity: 0, duration: 0.25 }, 8.35);
+    // Settings: "every team decides what ready means" (VO 7.8 + 0.5)
+    tl.fromTo("#s5-t2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 8.9);
+    // "Project admins switch checks on or off" (VO 11.1 + 0.5); the toggle flips at about 11.1 s.
+    tl.fromTo("#s5-c3", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 11.5);
+    tl.fromTo("#s5-c4", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 14.6);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["s5"] = tl;
+  </script>
+</template>

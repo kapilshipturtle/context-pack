@@ -1,0 +1,64 @@
+<template>
+  <style>
+    #s4-root { position: absolute; inset: 0; overflow: hidden; font-family: "Inter"; background: #ffffff; color: #172b4d; }
+    #s4-cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    #s4-v1, #s4-v2 { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #s4-card { position: absolute; left: 1420px; top: 90px; width: 470px; padding: 28px 28px 20px; background: #ffffff; border-radius: 24px; box-shadow: 0 30px 80px rgba(23,43,77,0.22); border: 1px solid #e3e7ef; opacity: 0; }
+    #s4-card .h { font-size: 30px; font-weight: 800; letter-spacing: -0.01em; }
+    #s4-card .sub { margin-top: 4px; font-size: 22px; color: #626f86; font-weight: 600; }
+    .s4-row { margin-top: 18px; display: flex; gap: 14px; align-items: flex-start; opacity: 0.28; }
+    .s4-row .n { flex: 0 0 34px; height: 34px; border-radius: 10px; background: #dfe1e6; color: #44546f; font-weight: 800; font-size: 18px; display: flex; align-items: center; justify-content: center; }
+    .s4-row .t { font-size: 28px; font-weight: 800; letter-spacing: -0.01em; }
+    .s4-row .s { margin-top: 3px; font-size: 20px; font-weight: 700; color: #5b3fd9; }
+    .s4-row .s.j { color: #1d7afc; }
+    #s4-ready { position: absolute; left: 60px; top: 960px; padding: 16px 26px; border-radius: 999px; background: #22a06b; color: #fff; font-size: 30px; font-weight: 800; opacity: 0; }
+    #s4-tag { position: absolute; left: 60px; top: 960px; padding: 16px 28px; border-radius: 999px; background: #172b4d; color: #fff; font-size: 30px; font-weight: 800; opacity: 0; }
+    #s4-hand { position: absolute; left: 1420px; top: 760px; width: 470px; padding: 26px 28px; background: #172b4d; color: #fff; border-radius: 24px; box-shadow: 0 30px 80px rgba(23,43,77,0.25); opacity: 0; }
+    #s4-hand .h { font-size: 30px; font-weight: 800; }
+    #s4-hand .u { margin-top: 12px; font-family: "JetBrains Mono", "DejaVu Sans Mono", monospace; font-size: 22px; color: #9fd0ff; word-break: break-all; }
+  </style>
+  <div id="s4-root" data-composition-id="s4" data-width="1920" data-height="1080">
+    <div id="s4-cam" data-layout-allow-overflow>
+      <video id="s4-v1" class="clip" src="assets/footage/c2_ready_panel.mp4" muted playsinline data-start="0" data-duration="22.8" data-media-start="1.0" data-playback-rate="0.62" data-track-index="0"></video>
+      <video id="s4-v2" class="clip" src="assets/footage/c2_ready_panel.mp4" muted playsinline data-start="22.8" data-duration="7.0" data-media-start="25.0" data-playback-rate="1.5" data-track-index="0"></video>
+    </div>
+    <div id="s4-card">
+      <div class="h">Six kinds of context</div>
+      <div class="sub" data-layout-ignore>gathered for this work item</div>
+      <div class="s4-row" id="s4-r1"><span data-layout-ignore class="n">1</span><div><div class="t">Why it matters: the goal</div><div class="s" data-layout-ignore>Teamwork Graph</div></div></div>
+      <div class="s4-row" id="s4-r2"><span data-layout-ignore class="n">2</span><div><div class="t">Acceptance criteria</div><div class="s j" data-layout-ignore>Jira</div></div></div>
+      <div class="s4-row" id="s4-r3"><span data-layout-ignore class="n">3</span><div><div class="t">Linked work and blockers</div><div class="s j" data-layout-ignore>Jira</div></div></div>
+      <div class="s4-row" id="s4-r4"><span data-layout-ignore class="n">4</span><div><div class="t">Spec text and its owner</div><div class="s" data-layout-ignore>Teamwork Graph · persisted Cypher query</div></div></div>
+      <div class="s4-row" id="s4-r5"><span data-layout-ignore class="n">5</span><div><div class="t">Decisions in comments</div><div class="s j" data-layout-ignore>Jira</div></div></div>
+      <div class="s4-row" id="s4-r6"><span data-layout-ignore class="n">6</span><div><div class="t">People to ask</div><div class="s" data-layout-ignore>Jira + Teamwork Graph</div></div></div>
+    </div>
+    <div id="s4-hand"><div class="h">One handoff for any agent</div><div class="u" data-layout-ignore>mcp.atlassian.com/forge/e9f46537-…</div></div>
+    <div id="s4-tag">Ready story · Context tab</div>
+    <div id="s4-ready">Ready to start · 6/6 checks</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s4-tag", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
+    tl.fromTo("#s4-cam", { scale: 1, x: 0, y: 0 }, { scale: 1.12, x: -40, y: -60, duration: 1.6, ease: "power2.inOut", immediateRender: false }, 0.6);
+    // "All six checks pass" (VO 1.9 + 0.5)
+    tl.to("#s4-tag", { opacity: 0, duration: 0.3 }, 2.2);
+    tl.fromTo("#s4-ready", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 2.4);
+    tl.to("#s4-ready", { opacity: 0, duration: 0.3 }, 6.0);
+    // "the Context tab pulls together six kinds of context" (VO 3.8 + 0.5)
+    tl.fromTo("#s4-card", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 4.4);
+    const lit = { opacity: 1, duration: 0.35, ease: "power2.out" };
+    tl.fromTo("#s4-r1", { opacity: 0.28 }, lit, 7.3);
+    tl.fromTo("#s4-r2", { opacity: 0.28 }, lit, 11.6);
+    tl.fromTo("#s4-r3", { opacity: 0.28 }, lit, 13.1);
+    tl.fromTo("#s4-r4", { opacity: 0.28 }, lit, 15.0);
+    tl.fromTo("#s4-r5", { opacity: 0.28 }, lit, 20.0);
+    tl.fromTo("#s4-r6", { opacity: 0.28 }, lit, 22.0);
+    tl.fromTo(["#s4-r1 .n", "#s4-r2 .n", "#s4-r3 .n", "#s4-r4 .n", "#s4-r5 .n", "#s4-r6 .n"], { backgroundColor: "#dfe1e6", color: "#44546f" }, { backgroundColor: "#22a06b", color: "#ffffff", duration: 0.3, immediateRender: false }, 22.4);
+    // "The For AI Agents tab turns all of it into one handoff, plus the MCP address" (VO 23.1 + 0.5)
+    tl.to("#s4-card", { y: -10, duration: 0.5, ease: "power2.inOut" }, 23.2);
+    tl.fromTo("#s4-hand", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 25.6);
+    tl.fromTo("#s4-hand .u", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 27.6);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["s4"] = tl;
+  </script>
+</template>
