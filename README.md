@@ -7,7 +7,7 @@ AI coding agents are only as good as the context they get. A ticket that says "M
 | Surface | What it does |
 |---|---|
 | **Jira issue panel** | Readiness score with a one-line fix per gap, plus a Context tab and a paste-ready handoff for agents |
-| **Readiness board** (project page) | Every open work item in the space, most ready first, with what each one is missing |
+| **Readiness board** (project page) | The top 25 open work items of the space's backlog, most ready first, with what each one is missing |
 | **Definition of Ready** (project settings) | Project admins choose which checks apply, the minimum description length and how strict "ready" is |
 | **Rovo agent "Context Pack"** | "Is this ready to start?", "Draft acceptance criteria", "Which items are ready?" |
 | **Rovo skill `ready-for-dev`** | Reusable instructions that take a work item from "is it ready?" to a plan |
